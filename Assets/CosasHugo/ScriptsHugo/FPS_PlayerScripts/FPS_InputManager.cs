@@ -24,6 +24,8 @@ public class FPS_InputManager : MonoBehaviour
 
         inputActions = new FPSInputActions();
         inputActions.Enable();
+        
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     public Vector2 GetInputMoveValue()

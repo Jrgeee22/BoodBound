@@ -190,7 +190,7 @@ public partial class @FPSInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""69df7c17-b840-4c02-becb-1bb96153b9c1"",
-                    ""path"": ""<Pointer>/delta"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
