@@ -68,6 +68,18 @@ public class SacarSangre : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
         }
     }
+    public void Onclick()
+    {
+        if (randomTexts != null && randomTexts.Length > 0)
+        {
+            int randomIndex = Random.Range(0, randomTexts.Length);
+            string textoElegido = randomTexts[randomIndex];
+            if (uiText != null)
+            {
+                uiText.text = textoElegido;
+            }
+        }
+    }
     public void ResetFill()
     {
         fillImage.fillAmount = 0f;
