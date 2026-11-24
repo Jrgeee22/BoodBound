@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Collections;
 
 public class SacarSangre : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -14,6 +15,8 @@ public class SacarSangre : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool isHolding = false;
     private bool isCompleted = false;
     private float currentDelayTimer = 0f;
+    public float esconderDelay = 2.0f;
+    private Coroutine esconder;
 
     void Update()
     {
@@ -33,7 +36,7 @@ public class SacarSangre : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 {
                     fillImage.fillAmount = 1f;
                     isCompleted = true;
-                    CompleteAction();
+                    isHolding = false;
                 }
             }
         }
@@ -54,20 +57,6 @@ public class SacarSangre : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         isHolding = false;
     }
-    void CompleteAction()
-    {
-        isHolding = false;
-
-        if (randomTexts != null && randomTexts.Length > 0)
-        {
-            int randomIndex = Random.Range(0, randomTexts.Length);
-            string textoElegido = randomTexts[randomIndex];
-            if (uiText != null)
-            {
-                uiText.text = textoElegido;
-            }
-        }
-    }
     public void Onclick()
     {
         if (randomTexts != null && randomTexts.Length > 0)
@@ -77,14 +66,19 @@ public class SacarSangre : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             if (uiText != null)
             {
                 uiText.text = textoElegido;
+                uiText.gameObject.SetActive(true);
+
+                if (esconder != null)
+                    StopCoroutine(esconder);
+
+                esconder = StartCoroutine(EsconderTextAfterDelay(esconderDelay));
             }
         }
     }
-    public void ResetFill()
+    private IEnumerator EsconderTextAfterDelay(float delay)
     {
-        fillImage.fillAmount = 0f;
-        currentDelayTimer = 0f;
-        isCompleted = false;
-        isHolding = false;
+        yield return new WaitForSeconds(delay);
+        uiText.gameObject.SetActive(false);
+        esconder = null;
     }
 }
